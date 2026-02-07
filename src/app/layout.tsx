@@ -8,6 +8,7 @@ import { Footer } from '@/components/core/Footer'
 import { ThemeProvider } from '@/components/core/ThemeProvider'
 import { SoundProvider } from '@/components/core/SoundProvider'
 import { ScrollProgress } from '@/components/core/ScrollProgress'
+import { AuthProvider } from '@/components/core/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const newsreader = Newsreader({ subsets: ['latin'], variable: '--font-newsreader', style: 'italic' })
@@ -29,15 +30,17 @@ export default function RootLayout({
             </head>
             <body className={`${inter.variable} ${newsreader.variable}`}>
                 <StyledComponentsRegistry>
-                    <ThemeProvider>
-                        <SoundProvider>
-                            <GlobalStyles />
-                            <ScrollProgress />
-                            <Header />
-                            <main>{children}</main>
-                            <Footer />
-                        </SoundProvider>
-                    </ThemeProvider>
+                    <AuthProvider>
+                        <ThemeProvider>
+                            <SoundProvider>
+                                <GlobalStyles />
+                                <ScrollProgress />
+                                <Header />
+                                <main>{children}</main>
+                                <Footer />
+                            </SoundProvider>
+                        </ThemeProvider>
+                    </AuthProvider>
                 </StyledComponentsRegistry>
             </body>
         </html>
