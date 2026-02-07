@@ -2,11 +2,6 @@
 trigger: always_on
 ---
 
-Để đảm bảo tính nhất quán tuyệt đối và ngăn chặn việc AI Agent "đi chệch nhịp" khi triển khai code, tôi đã soạn thảo file `layout.md` dưới dạng một bản **"Hiến pháp Layout"**.
-
-Agent (hoặc chính bạn) khi bắt đầu bất cứ tác vụ nào đều phải đọc và tuân thủ các quy tắc này để đảm bảo sản phẩm cuối cùng đạt độ tinh sảo như mong đợi, thoát khỏi sự đơn giản hiện tại.
-
----
 
 # 📜 Layout System Constitution (Backbone Rules)
 
