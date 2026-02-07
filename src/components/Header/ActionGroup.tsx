@@ -34,7 +34,7 @@ const SearchButton = () => {
     const [style, trigger] = useBoop({ scale: 1.2, timing: 200 });
     return (
         <IconButton
-            style={style}
+            style={style as any}
             onMouseEnter={trigger}
             aria-label="Search"
             type="button"
@@ -50,7 +50,7 @@ const RssButton = () => {
         <IconButton
             as="a"
             href="/rss.xml"
-            style={style}
+            style={style as any}
             onMouseEnter={trigger}
             aria-label="RSS Feed"
         >

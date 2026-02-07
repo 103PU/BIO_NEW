@@ -32,7 +32,7 @@ export const SoundToggle = () => {
 
   return (
     <IconButton
-      style={style}
+      style={style as any}
       onMouseEnter={trigger}
       onClick={toggleSound}
       aria-label={isMuted ? "Unmute" : "Mute"}
