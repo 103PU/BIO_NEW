@@ -22,7 +22,7 @@ const Name = styled.span`
   z-index: 2;
 `;
 
-const Squiggle = styled(animated.svg)`
+const Squiggle: any = styled(animated.svg)`
   width: 32px;
   height: 32px;
   stroke: hsl(var(--color-primary));
