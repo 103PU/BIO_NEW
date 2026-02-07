@@ -26,6 +26,8 @@ const nextConfig = {
         };
         return config;
     },
+    // Fix for Next.js 15 Turbopack build error
+    turbopack: {},
 };
 
 export default nextConfig;
