@@ -51,7 +51,7 @@ export default function Logo() {
             {/* Hand-drawn squiggle mimicking a spring/coil */}
             <Squiggle
                 viewBox="0 0 24 24"
-                style={style}
+                style={style as any}
             >
                 {/* A proper spring/coil path */}
                 <path
