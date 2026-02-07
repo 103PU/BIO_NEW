@@ -3,102 +3,65 @@
 > [!IMPORTANT]
 > These rules are NON-NEGOTIABLE. Failure to follow them will result in rejected code.
 
-## 1. 🚨 Critical Security Rules
+## 1. 🎨 Artisan UI Mandates (VISUAL CORE)
+
+### Fluid Typography & Spacing
+**Rule**: CẤM dùng đơn vị tĩnh (`px`) cho font-size và layout padding chính.
+**Require**: Bắt buộc dùng biến CSS `clamp()` đã định nghĩa trong `GlobalStyles.ts`.
+- ❌ `font-size: 16px;`
+- ✅ `font-size: var(--font-size-base);` (Sử dụng `clamp(1rem, ..., 1.125rem)`)
+
+### Layered Shadows (Depth)
+**Rule**: Bóng đổ phải có chiều sâu vật lý (3 lớp). Không dùng `box-shadow` đơn.
+- ❌ `box-shadow: 0 4px 6px black;`
+- ✅ `box-shadow: var(--shadow-md);` (Được cấu thành từ 3 lớp umbra/penumbra/ambient).
+
+### Zero-Flicker Architecture
+**Rule**: Dark Mode phải load ngay tức thì. Không được chớp trắng.
+- **Mechanism**: Script chặn render (`theme-script.tsx`) phải được inject vào `<head>`.
+- **Constraint**: Không dùng `useEffect` để set initial theme.
+
+### Bento Grid System
+**Rule**: Layout chính phải dùng `display: grid` với `grid-template-areas`.
+- **Constraint**: Mobile stack dọc, Tablet 2 cột, Desktop 4 cột.
+- **Component**: Luôn sử dụng `<BentoCard>` wrapper cho các ô nội dung.
+
+## 2. 🚨 Critical Security Rules
 
 ### Authentication Check
 **Use Case**: ALL Server Actions & API Routes.
 ```typescript
 'use server'
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-
-export async function anyAction(data: unknown) {
-  // ✅ REQUIRED: Check session FIRST
+export async function anyAction() {
   const session = await getServerSession(authOptions);
-  if (!session) {
-    return { success: false, error: "Bạn cần đăng nhập" };
-  }
-  // Continue...
+  if (!session) throw new Error("Unauthorized");
 }
-```
-
-### RBAC Protection
-**Use Case**: Sensitive actions (Delete, Update, Admin tasks).
-```typescript
-// Example: Require ADMIN role
-await requireRole([Role.ADMIN]);
-// Or permission
-await requirePermission('documents:create');
 ```
 
 ### Input Validation (Zod)
 **Use Case**: ALL user input.
 ```typescript
-const schema = z.object({
-  title: z.string().min(3),
-  // ...
-});
-const parsed = schema.safeParse(data);
-if (!parsed.success) {
-  return { success: false, error: "Dữ liệu không hợp lệ" };
-}
-const { title } = parsed.data; // Type-safe usage
+const schema = z.object({ title: z.string().min(3) });
+const parsed = schema.parse(data);
 ```
 
-### SQL Injection Prevention
-**Rule**: ALWAYS use Prisma ORM. NEVER use raw SQL (`$queryRaw`) with user input.
-
-## 2. 🎯 4-Level Data Hierarchy
+## 3. 🎯 4-Level Data Hierarchy
 **Structure**: `Department` -> `Category` (Phân Mục) -> `Topic` (Loại) -> `Document`.
+**Tags**: Specific models (MPC 3054). **MachineModel**: Series (MP, MPC).
 
-- **Department**: Top level (e.g., Kỹ Thuật, Kinh Doanh).
-- **Category (Type)**: "Quy Trình", "Tài Liệu", "Hình Ảnh".
-- **Topic**: Specific grouping (e.g., "Cài đặt in-scan").
-    - **Slug Rule**: `${categoryName}-${topicName}` (e.g., `quy-trinh-cai-dat-in-scan`).
-- **Document**: The actual content.
+## 4. ⚡ Server Actions Pattern
+**Format**: `Promise<{ success: boolean; error?: string; data?: any }>`
+**Database**:
+- Multi-table updates **MUST** use `prisma.$transaction`.
+- Call `revalidatePath` after mutation.
 
-**Tags vs MachineModel**:
-- **MachineModel**: SERIES only (MP, MPC, MPW).
-- **Tags**: Specific models (MPC 3054, MP 7001).
-
-## 3. ⚡ Server Actions Pattern
-
-### Standard Response Format
-```typescript
-type ActionResult = {
-  success: boolean;
-  error?: string; // Vietnamese error message
-  data?: any;
-};
-```
-
-### Transaction Requirement (CRITICAL)
-**Rule**: Multi-table updates (Core `Document` + `TechnicalMetadata`) **MUST** use `prisma.$transaction`.
-```typescript
-await prisma.$transaction(async (tx) => {
-  const doc = await tx.document.create({ ... });
-  await tx.technicalMetadata.create({
-    data: { documentId: doc.id, ... }
-  });
-});
-```
-
-### Facade Pattern (Access)
-**Rule**: Consumers (UI/API) should receive a "flattened" object. Service layer must map Metadata fields to the root object.
-- ❌ `doc.technicalMetadata.machineModels`
-- ✅ `doc.machineModels`
-
-### Revalidation
-**Rule**: Call `revalidatePath` after every mutation.
-
-## 4. 🔍 Systematic Debugging (Iron Law)
+## 5. 🔍 Systematic Debugging (Iron Law)
 **No fixes without root cause investigation.**
-1.  **Investigate**: Read errors, reproduce, trace data.
+1.  **Investigate**: Read errors, reproduce.
 2.  **Analyze**: Compare with working examples.
 3.  **Hypothesize & Test**: Try ONE change at a time.
 4.  **Implement**: Fix and Verify.
 
-## 5. 🌐 Vietnamese Language Standard
-- **User-Facing**: 100% Vietnamese (Error messages, UI text).
-  - ✅ `return { success: false, error: "Bạn cần đăng nhập" };`
-- **Code Comments**: English permitted and encouraged for technical details.
+## 6. 🌐 Language Standard
+- **User-Facing**: 100% Vietnamese.
+- **Code Comments**: English permitted.

@@ -8,45 +8,33 @@ trigger: always_on
 
 ### Iron Law of TDD
 **NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST.**
-1.  **Red**: Write failing test.
-2.  **Green**: Write minimal code to pass.
-3.  **Refactor**: Clean up.
 
-### Coverage
-- **Server Actions**: Must have `actions.test.ts`.
-- **Logic**: Unit tests for services/utils.
-- **Critical Flows**: E2E tests in `e2e/`.
-
-### Verification Gate
+### Visual Verification (Artisan Gate)
 **Before checking off a task:**
-1.  Identify the proof command (`npm test`, `npm run build`).
-2.  Run it.
-3.  Read the output.
-4.  Only claim "Done" if it passes.
+1.  **Fluidity Check**: Resize trình duyệt từ 320px -> 1920px. Layout có vỡ không? Font chữ có scale mượt không?
+2.  **Theme Check**: Toggle Dark/Light mode liên tục. Có bị chớp trắng không? Màu sắc có đảo đúng logic semantic không?
+3.  **Physics Check**: Hover vào Button/Card. Có hiệu ứng bay lên/bóng đổ không?
 
 ## 2. 📝 Git Standards
 
 ### Commit Messages
 Format: `type: description`
-- `feat`: New feature
+- `feat`: New feature (e.g., `feat: Add Guestbook bento card`)
+- `style`: Visual changes (e.g., `style: Adjust fluid typography clamp`)
 - `fix`: Bug fix
 - `refactor`: Code change, no behavior change
-- `test`: Adding tests
-- `docs`: Documentation
-
-**Example**: `feat: Add document bulk delete functionality`
 
 ### Pull Requests / Review
-- **Security**: Auth check? Input validation?
-- **Testing**: Tests added? All pass?
-- **Quality**: No lint errors? No console logs?
+- **UI Integrity**: Đã so sánh với `LAYOUT.md` chưa?
+- **Responsiveness**: Đã test trên Mobile chưa?
 
 ## 3. 🚀 Deployment Checklist
 
 ### Pre-Production
-1.  **Middleware**: Enable Auth checks (Uncomment lines in `middleware.ts`).
-2.  **Secrets**: Rotate `NEXTAUTH_SECRET`. Set Prod `DATABASE_URL`.
-3.  **Build**: `npm run build` must pass.
+1.  **Visual Regression**: Đảm bảo phiên bản build không bị mất CSS/Style (FOUC).
+2.  **Middleware**: Enable Auth checks.
+3.  **Secrets**: Rotate `NEXTAUTH_SECRET`. Set Prod `DATABASE_URL`.
+4.  **Build**: `npm run build` must pass.
 
 ### Database
 1.  `npx prisma migrate deploy`
