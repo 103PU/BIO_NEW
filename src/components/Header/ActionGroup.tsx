@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   gap: var(--space-sm);
 `;
 
-const IconButton = styled(animated.button)`
+const BaseButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
@@ -29,6 +29,8 @@ const IconButton = styled(animated.button)`
     color: hsl(var(--color-primary));
   }
 `;
+
+const IconButton = animated(BaseButton);
 
 const SearchButton = () => {
     const [style, trigger] = useBoop({ scale: 1.2, timing: 200 });

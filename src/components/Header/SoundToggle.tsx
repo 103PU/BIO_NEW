@@ -6,7 +6,7 @@ import useBoop from '@/hooks/useBoop';
 import styled from 'styled-components';
 import { useSoundContext } from '@/components/core/SoundProvider';
 
-const IconButton = styled(animated.button)`
+const BaseButton = styled.button`
   background: transparent;
   border: none;
   cursor: pointer;
@@ -23,6 +23,8 @@ const IconButton = styled(animated.button)`
     color: hsl(var(--color-primary));
   }
 `;
+
+const IconButton = animated(BaseButton);
 
 export const SoundToggle = () => {
   const { soundEnabled, toggleSound } = useSoundContext();
