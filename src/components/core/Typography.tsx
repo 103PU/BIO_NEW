@@ -21,7 +21,7 @@ export const Heading = styled.h2<{ $size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '
     }};
 `
 
-export const Text = styled.p<{ $size?: 'xs' | 'sm' | 'md' | 'lg', $variant?: 'default' | 'subtle' | 'muted' }>`
+export const Text = styled.p<{ $size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl', $variant?: 'default' | 'subtle' | 'muted' }>`
   font-family: var(--font-inter), sans-serif;
   line-height: 1.6;
   
@@ -38,6 +38,7 @@ export const Text = styled.p<{ $size?: 'xs' | 'sm' | 'md' | 'lg', $variant?: 'de
             case 'xs': return 'var(--font-xs)';
             case 'md': return 'var(--font-md)'; // 18-20px
             case 'lg': return 'var(--font-lg)';
+            case 'xl': return 'var(--font-xl)';
             default: return 'var(--font-sm)'; // 16px
         }
     }};
