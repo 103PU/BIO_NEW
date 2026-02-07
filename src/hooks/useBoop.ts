@@ -40,5 +40,5 @@ export default function useBoop({
         setIsBooped(true);
     }, []);
 
-    return [style, trigger];
+    return [style, trigger] as const;
 }
