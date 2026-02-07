@@ -1,117 +1,116 @@
 'use client'
 
 import styled from 'styled-components'
-import { Card } from '@/components/core/Card'
+import { BentoCard } from '@/components/core/BentoCard'
 import { Guestbook } from '@/features/guestbook/components/Guestbook'
 import { ViewCounter } from '@/components/core/ViewCounter'
 import { MagicLink } from '@/components/core/MagicLink'
 import { Button } from '@/components/core/Button'
+import { Heading, Text, Label } from '@/components/core/Typography'
+import { Spacer } from '@/components/core/Spacer'
 
-// Bento Grid Layout
+// Phase 3: Bento Grid Engine
 const Grid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  padding: 120px 24px 60px; /* Top padding for fixed header */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-3xl) var(--space-md) var(--space-2xl);
   max-width: 1200px;
   margin: 0 auto;
   
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "bio      bio"
+      "latest   latest"
+      "project1 project2"
+      "guestbook guestbook"
+      "social   stats";
   }
   
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, minmax(180px, auto));
+  @media (min-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "bio      bio      latest   latest"
+      "project1 project2 latest   latest"
+      "guestbook guestbook social   stats";
   }
-`
-
-// Grid Areas
-const HeroCard = styled(Card)`
-  grid-column: 1 / -1;
-  grid-row: 1 / 3;
-  
-  @media (min-width: 1024px) {
-    grid-column: 1 / 3;
-  }
-  
-  h1 {
-    font-size: var(--font-size-3xl);
-    background: linear-gradient(135deg, hsl(var(--color-text)) 0%, hsl(var(--color-text-muted)) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
-  }
-  
-  p {
-    font-size: var(--font-size-lg);
-    color: hsl(var(--color-text-muted));
-    line-height: 1.6;
-    max-width: 50ch;
-  }
-`
-
-const StatsCard = styled(Card)`
-  grid-column: 1 / -1;
-  @media (min-width: 768px) { grid-column: span 1; }
-`
-
-const GuestbookCard = styled(Card)`
-  grid-column: 1 / -1;
-  grid-row: span 2;
-  
-  @media (min-width: 1024px) {
-    grid-column: 3 / 5;
-    grid-row: 1 / 3;
-  }
-`
-
-const TechStackCard = styled(Card)`
-   grid-column: 1 / -1;
-   @media (min-width: 1024px) { grid-column: 1 / 3; }
 `
 
 export default function Home() {
-    return (
-        <Grid>
-            {/* Hero Section */}
-            <HeroCard>
-                <h1>Designing for the <br /> Web of Tomorrow</h1>
-                <p>
-                    I'm <MagicLink href="/about">103_PU</MagicLink>. I build artisan web experiences
-                    with a focus on fluid animations, micro-interactions, and serverless architecture.
-                </p>
-                <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                    <Button>Check my work</Button>
-                    <Button variant="secondary">Read Blog</Button>
-                </div>
-            </HeroCard>
+  return (
+    <Grid>
+      {/* Bio Area */}
+      <BentoCard area="bio">
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+          <Label>Welcome</Label>
+          <Spacer size="xs" />
+          <Heading $size="2xl">Designing for the <br /> Web of Tomorrow</Heading>
+          <Spacer size="md" />
+          <Text $size="lg" $variant="subtle">
+            I'm <MagicLink href="/about">103_PU</MagicLink>. I build artisan web experiences
+            with a focus on fluid animations and serverless architecture.
+          </Text>
+          <Spacer size="lg" />
+          <div style={{ display: 'flex', gap: 'var(--space-sm)' }}>
+            <Button>Check my work</Button>
+            <Button variant="secondary">Read Blog</Button>
+          </div>
+        </div>
+      </BentoCard>
 
-            {/* Guestbook Feature */}
-            <GuestbookCard>
-                <Guestbook />
-            </GuestbookCard>
+      {/* Latest Work (Placeholder) */}
+      <BentoCard area="latest" href="/blog/hello-world">
+        <div style={{ height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <Label>Latest Post</Label>
+          <Heading $size="xl">The Future of React Server Components</Heading>
+          <Text $variant="subtle">How zero-bundle-size is changing the game.</Text>
+        </div>
+      </BentoCard>
 
-            {/* Stats */}
-            <StatsCard>
-                <h3>Total Views</h3>
-                <div style={{ fontSize: '3rem', fontWeight: 700, color: 'hsl(var(--color-primary))' }}>
-                    <ViewCounter slug="codex" trackView={false} />
-                </div>
-            </StatsCard>
+      {/* Projects */}
+      <BentoCard area="project1" href="#">
+        <Label>Project</Label>
+        <Heading $size="md">Vitechco Hub</Heading>
+        <Text $size="sm" $variant="muted">Next.js 15 Enterprise Platform</Text>
+      </BentoCard>
 
-            <StatsCard>
-                <h3>Status</h3>
-                <p>🟢 Open for work</p>
-                <p>📍 Vietnam</p>
-            </StatsCard>
+      <BentoCard area="project2" href="#">
+        <Label>Project</Label>
+        <Heading $size="md">Artisan Portfolio</Heading>
+        <Text $size="sm" $variant="muted">Josh W. Comeau Clone</Text>
+      </BentoCard>
 
-            {/* Tech Stack */}
-            <TechStackCard>
-                <h3>Technologies</h3>
-                <p>Next.js 15 · React 19 · TypeScript · Styled-Components · Supabase · Vercel</p>
-            </TechStackCard>
+      {/* Guestbook */}
+      <BentoCard area="guestbook">
+        <Label>Community</Label>
+        <Spacer size="xs" />
+        <Guestbook />
+      </BentoCard>
 
-        </Grid>
-    )
+      {/* Socials */}
+      <BentoCard area="social">
+        <Label>Connect</Label>
+        <Spacer size="sm" />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <MagicLink href="https://github.com">GitHub ↗</MagicLink>
+          <MagicLink href="https://twitter.com">Twitter ↗</MagicLink>
+          <MagicLink href="mailto:hello@example.com">Email ↗</MagicLink>
+        </div>
+      </BentoCard>
+
+      {/* Stats */}
+      <BentoCard area="stats">
+        <Label>Analytics</Label>
+        <Spacer size="sm" />
+        <div style={{ fontSize: '2.5rem', fontWeight: 700, color: 'hsl(var(--color-primary))' }}>
+          <ViewCounter slug="codex" trackView={false} />
+        </div>
+        <Text $size="xs" $variant="muted">Total Page Views</Text>
+      </BentoCard>
+
+    </Grid>
+  )
 }

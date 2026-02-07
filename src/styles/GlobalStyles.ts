@@ -39,6 +39,37 @@ const GlobalStyles = createGlobalStyle`
       --color-accent: ${COLORS.dark.accent};
       --color-border: ${COLORS.dark.border};
     }
+
+    /* Layered Shadows (Phase 2) */
+    --shadow-color: 220deg 3% 15%;
+    --shadow-strength: 1%;
+
+    --shadow-sm: 
+      0px 0.5px 0.6px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 1.5px 1.8px -0.8px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 3.5px 4.2px -1.7px hsl(var(--shadow-color) / var(--shadow-strength));
+      
+    --shadow-md:
+      0px 0.8px 1px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 2.8px 3.4px -0.6px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 6.7px 8.1px -1.2px hsl(var(--shadow-color) / var(--shadow-strength));
+
+    --shadow-lg:
+      0px 0.8px 1px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 2.8px 3.4px -0.6px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 6.7px 8.1px -1.2px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 16.2px 19.6px -1.8px hsl(var(--shadow-color) / var(--shadow-strength)),
+      0px 35px 40px -2.5px hsl(var(--shadow-color) / var(--shadow-strength));
+
+    &[data-theme='light'] {
+      --shadow-strength: 10%;
+      --shadow-color: 220deg 3% 15%;
+    }
+    
+    &[data-theme='dark'] {
+      --shadow-strength: 25%;
+      --shadow-color: 0deg 0% 0%;
+    }
   }
 
   /* Reset */

@@ -20,7 +20,7 @@ const Wrapper = styled(Link)`
 
 export const MagicLink = ({ href, children, ...props }: React.ComponentProps<typeof Link>) => {
     return (
-        <Wrapper href={href} {...props}>
+        <Wrapper href={href} {...(props as any)}>
             {children}
         </Wrapper>
     )
