@@ -37,6 +37,13 @@ const Button = styled.button`
   cursor: pointer;
 `
 
+interface GuestbookEntry {
+    id: string;
+    body: string;
+    createdBy: string;
+    updatedAt: string;
+}
+
 export const Guestbook = () => {
     const { entries, mutate, isLoading } = useGuestbook()
     const { data: session } = useSession()
@@ -55,7 +62,7 @@ export const Guestbook = () => {
 
         try {
             await mutate(
-                async (currentData) => {
+                async (currentData: GuestbookEntry[] | undefined) => {
                     await fetch('/api/guestbook', {
                         method: 'POST',
                         body: JSON.stringify({ body: input }),
@@ -64,7 +71,7 @@ export const Guestbook = () => {
                     return [newEntry, ...(currentData || [])]
                 },
                 {
-                    optimisticData: (currentData) => [newEntry, ...(currentData || [])],
+                    optimisticData: (currentData: GuestbookEntry[] | undefined) => [newEntry, ...(currentData || [])],
                     rollbackOnError: true,
                     revalidate: false,
                 }
