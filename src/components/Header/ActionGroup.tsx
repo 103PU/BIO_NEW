@@ -33,7 +33,12 @@ const IconButton = styled(animated.button)`
 const SearchButton = () => {
     const [style, trigger] = useBoop({ scale: 1.2, timing: 200 });
     return (
-        <IconButton style={style} onMouseEnter={trigger} aria-label="Search">
+        <IconButton
+            style={style}
+            onMouseEnter={trigger}
+            aria-label="Search"
+            type="button"
+        >
             <Search size={20} />
         </IconButton>
     );

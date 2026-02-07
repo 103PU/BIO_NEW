@@ -48,17 +48,19 @@ export default function Logo() {
         >
             <Name>103_PU</Name>
             {/* Hand-drawn squiggle mimicking a spring/coil */}
+            {/* Hand-drawn squiggle mimicking a spring/coil */}
             <Squiggle
                 viewBox="0 0 24 24"
                 style={style}
             >
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h2v-2h-2v2zm0-4h2V7h-2v6z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                {/* Replacing with a more "squiggly" path */}
-                {/* A simple coil shape */}
-                <path d="M4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z" opacity="0.2" stroke="none" fill="currentColor" />
-                <path d="M7 12c0 2.8 2.2 5 5 5s5-2.2 5-5-2.2-5-5-5-5 2.2-5 5z" strokeWidth="2" />
-                {/* Let's try a better squiggle path */}
-                <path d="M2.5 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8-8-3.6-8-8z" opacity="0" />
+                {/* A proper spring/coil path */}
+                <path
+                    d="M2 12C2 12 5 5 8 5C11 5 11 19 14 19C17 19 17 5 20 5C23 5 22 12 22 12"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    fill="none"
+                    strokeLinecap="round"
+                />
             </Squiggle>
         </Wrapper>
     );

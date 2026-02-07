@@ -50,12 +50,12 @@ const StyledLink = styled(Link)`
 `;
 
 export default function DesktopNavigation() {
-    return (
-        <NavList>
-            <NavItem><StyledLink href="/blog">Blog</StyledLink></NavItem>
-            <NavItem><StyledLink href="/projects">Projects</StyledLink></NavItem>
-            <NavItem><StyledLink href="/guestbook">Guestbook</StyledLink></NavItem>
-            <NavItem><StyledLink href="/about">About</StyledLink></NavItem>
-        </NavList>
-    );
+  return (
+    <NavList>
+      <NavItem><StyledLink href="/blog">Blog</StyledLink></NavItem>
+      <NavItem><StyledLink href="/projects">Projects</StyledLink></NavItem>
+      <NavItem><StyledLink href="/guestbook">Guestbook</StyledLink></NavItem>
+      <NavItem><StyledLink href="/about">About</StyledLink></NavItem>
+    </NavList>
+  );
 }

@@ -25,21 +25,20 @@ const IconButton = styled(animated.button)`
 `;
 
 export const SoundToggle = () => {
-    const { isMuted, toggleSound } = useSoundContext();
-    const [style, trigger] = useBoop({ x: 2, timing: 200 }); // Shake effect logic would be more complex, simplify for now
+  const { soundEnabled, toggleSound } = useSoundContext();
+  const [style, trigger] = useBoop({ x: 2, timing: 200 });
 
-    // Placeholder shake animation:
-    // Ideally use keyframes or complex spring config.
-    // Here we use a simple translation.
+  const isMuted = !soundEnabled;
 
-    return (
-        <IconButton
-            style={style}
-            onMouseEnter={trigger}
-            onClick={toggleSound}
-            aria-label={isMuted ? "Unmute" : "Mute"}
-        >
-            {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-        </IconButton>
-    );
+  return (
+    <IconButton
+      style={style}
+      onMouseEnter={trigger}
+      onClick={toggleSound}
+      aria-label={isMuted ? "Unmute" : "Mute"}
+      type="button"
+    >
+      {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+    </IconButton>
+  );
 };
