@@ -6,7 +6,8 @@ import useBoop from '@/hooks/useBoop';
 import styled from 'styled-components';
 import { useSoundContext } from '@/components/core/SoundProvider';
 
-const BaseButton = styled.button`
+// Explicitly cast to any to resolve Type mismatch between styled-components v6 and @types/styled-components v5
+const IconButton: any = styled(animated.button)`
   background: transparent;
   border: none;
   cursor: pointer;
@@ -23,8 +24,6 @@ const BaseButton = styled.button`
     color: hsl(var(--color-primary));
   }
 `;
-
-const IconButton = animated(BaseButton);
 
 export const SoundToggle = () => {
   const { soundEnabled, toggleSound } = useSoundContext();
