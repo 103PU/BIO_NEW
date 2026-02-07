@@ -121,10 +121,17 @@ const GlobalStyles = createGlobalStyle`
     font-family: inherit;
   }
 
-  /* Selection Color */
+  /* Module C: Custom Selection */
   ::selection {
-    background-color: hsl(var(--color-accent) / 0.3);
-    color: hsl(var(--color-text));
+    background-color: hsl(var(--color-primary));
+    color: hsl(var(--color-background));
+  }
+
+  /* Module A: Custom Focus Ring */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--color-background)), 0 0 0 5px hsl(var(--color-primary));
+    border-radius: 4px;
   }
 `;
 

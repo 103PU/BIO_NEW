@@ -8,6 +8,7 @@ import { Footer } from '@/components/core/Footer'
 import { ThemeProvider } from '@/components/core/ThemeProvider'
 import { SoundProvider } from '@/components/core/SoundProvider'
 import { ScrollProgress } from '@/components/core/ScrollProgress'
+import { SkipLink } from '@/components/core/SkipLink'
 import { AuthProvider } from '@/components/core/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -35,8 +36,9 @@ export default function RootLayout({
                             <SoundProvider>
                                 <GlobalStyles />
                                 <ScrollProgress />
+                                <SkipLink />
                                 <Header />
-                                <main>{children}</main>
+                                <main id="main-content">{children}</main>
                                 <Footer />
                             </SoundProvider>
                         </ThemeProvider>
