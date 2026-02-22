@@ -1,4 +1,5 @@
 import { defineConfig, defineCollection, s } from 'velite'
+import rehypePrettyCode from 'rehype-pretty-code'
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
     ...data,
@@ -32,7 +33,9 @@ export default defineConfig({
     },
     collections: { posts },
     mdx: {
-        rehypePlugins: [],
+        rehypePlugins: [
+            [rehypePrettyCode, { theme: 'github-dark' }]
+        ],
         remarkPlugins: [],
     },
 })
